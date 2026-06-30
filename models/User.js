@@ -27,6 +27,9 @@ const userSchema = new mongoose.Schema(
       enum: ["student", "recruiter"],
       required: true,
     },
+    resume: {
+  type: String,
+},
   },
   { timestamps: true }
 );

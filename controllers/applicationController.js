@@ -62,7 +62,7 @@ const getJobApplicants = async (req, res) => {
   }
 
   const applications = await Application.find({ job: req.params.jobId })
-    .populate("student", "name email phone")
+    .populate("student", "name email phone resume")
     .populate("job", "title company location");
 
   res.status(200).json(applications);

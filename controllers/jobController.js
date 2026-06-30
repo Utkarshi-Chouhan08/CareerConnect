@@ -28,12 +28,38 @@ const createJob = async (req, res) => {
 };
 
 
+// const getAllJobs = async (req, res) => {
+//   const jobs = await Job.find().populate("recruiter", "name email");
+
+//   res.status(200).json(jobs);
+// };
+
+
+
 const getAllJobs = async (req, res) => {
-  const jobs = await Job.find().populate("recruiter", "name email");
+  const { search, location, jobType } = req.query;
+
+  let query = {};
+
+  if (search) {
+    query.$or = [
+      { title: { $regex: search, $options: "i" } },
+      { company: { $regex: search, $options: "i" } },
+    ];
+  }
+
+  if (location) {
+    query.location = { $regex: location, $options: "i" };
+  }
+
+  if (jobType) {
+    query.jobType = jobType;
+  }
+
+  const jobs = await Job.find(query).populate("recruiter", "name email");
 
   res.status(200).json(jobs);
 };
-
 
 const getSingleJob = async (req, res) => {
   const job = await Job.findById(req.params.id).populate("recruiter", "name email");
