@@ -18,11 +18,17 @@ const app = express();
 
 // app.use(cors());
 
+// app.use(cors({
+//   origin: [
+//     "http://localhost:5173",
+//     "https://career-connect-frontend-coral.vercel.app"
+//   ],
+//   credentials: true
+// }));
+
+
 app.use(cors({
-  origin: [
-    "http://localhost:5173",
-    "https://career-connect-frontend-coral.vercel.app"
-  ],
+  origin: true,
   credentials: true
 }));
 app.use(express.json());
